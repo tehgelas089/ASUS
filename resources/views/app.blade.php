@@ -152,7 +152,6 @@
     `;
       });
 
-      // total tanpa Rp
       totalBayarInput.value = totalBayar;
       totalBayarField.value = totalBayar;
 
@@ -160,16 +159,25 @@
         const uang = parseInt(uangPelanggan.value) || 0;
         const kembali = Math.max(0, uang - totalBayar);
 
-        // kembalian tanpa Rp
         kembalianInput.value = kembali;
         kembalianField.value = kembali;
       });
 
-      document.getElementById("formTransaksi").addEventListener("submit", function() {
+      document.getElementById("formTransaksi").addEventListener("submit", function(e) {
+        const uang = parseInt(uangPelanggan.value) || 0;
+
+        // 🚫 Validasi uang kurang
+        if (uang < totalBayar) {
+          e.preventDefault();
+          alert("⚠️ Uang pelanggan kurang dari total bayar!");
+          return false;
+        }
+
         itemsField.value = JSON.stringify(pesanan);
         localStorage.removeItem("pesanan");
       });
     });
+
 
     // AMBIL WARNA DARI SESSION STORAGE
     // const primary = sessionStorage.getItem('primaryColor');

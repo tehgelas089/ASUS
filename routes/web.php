@@ -24,8 +24,10 @@ Route::get('/akun', function () {
     ->with('title', 'akun saya');
 });
 
-Route::post('/edit/update', [App\Http\Controllers\ProfileController::class, 'update'])
-  ->name('edit.update');
+Route::middleware(['auth'])->group(function () {
+  Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+  Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
+});
 
 
 // =========================
@@ -37,6 +39,7 @@ Route::get('/app', [TransactionController::class, 'index'])->name('app');
 // Route::post('/transaksi', [TransactionController::class, 'store'])->name('transaksi.store');
 
 Route::get('/pendapatan', [RevenueController::class, 'index'])->name('pendapatan.index');
+
 
 
 // Kelola produk (CRUD)

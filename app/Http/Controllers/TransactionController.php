@@ -31,10 +31,10 @@ class TransactionController extends Controller
         ]);
 
         // Simpan juga ke tabel revenue
-        Revenue::create([
-            'transaction_id' => $transaction->id,
-            'income' => $request->total_bayar,
-        ]);
+        // Revenue::create([
+        //     'transaction_id' => $transaction->id,
+        //     'income' => $request->total_bayar,
+        // ]);
 
         // 🔥 Notif berhasil (ini aja yang aku tambahin)
         return redirect()->back()->with('success', 'Transaksi berhasil disimpan!');

@@ -3,22 +3,29 @@
 namespace App\Http\Controllers;
 
 use App\Models\Revenue;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class RevenueController extends Controller
 {
     public function index()
     {
-        // ✅ Ambil semua pendapatan dengan relasi transaksi dari database
-        $revenues = Revenue::with('transaction')->orderBy('created_at', 'desc')->get();
+        $id = session('user_id');
+        // 🔥 Hitung total income (lebih efisien)
+        $total = Revenue::sum('income');
+        $user = User::find($id);
 
-        // ✅ Hitung total semua income
-        $total = $revenues->sum('income');
+        // 🔥 Ambil data untuk tampilan dengan pagination (10 per halaman)
+        $revenues = Revenue::with('transaction')
+            ->orderBy('created_at', 'desc')
+            ->paginate(10); // ⬅ Pagination diterapkan di sini
 
-        // ✅ Kirim data ke view
+        // 🔥 Kirim data ke view
         return view('pendapatan', [
             'revenues' => $revenues,
             'total' => $total,
-            'title' => 'Halaman Pendapatan'
+            'title' => 'Halaman Pendapatan',
+            'user' => $user
         ]);
     }
 }

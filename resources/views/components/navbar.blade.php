@@ -319,69 +319,7 @@
 
                     <!-- Profile dropdown -->
                     <div class="relative ml-3 flex gap-4">
-                        <!-- mode -->
-                        <label class="switch">
-                            <input id="input" type="checkbox" checked="darkTheme" class="toggle" />
-                            <div class="slider round">
-                                <div class="sun-moon">
-                                    <svg id="moon-dot-1" class="moon-dot" viewBox="0 0 100 100">
-                                        <circle cx="50" cy="50" r="50"></circle>
-                                    </svg>
-                                    <svg id="moon-dot-2" class="moon-dot" viewBox="0 0 100 100">
-                                        <circle cx="50" cy="50" r="50"></circle>
-                                    </svg>
-                                    <svg id="moon-dot-3" class="moon-dot" viewBox="0 0 100 100">
-                                        <circle cx="50" cy="50" r="50"></circle>
-                                    </svg>
-                                    <svg id="light-ray-1" class="light-ray" viewBox="0 0 100 100">
-                                        <circle cx="50" cy="50" r="50"></circle>
-                                    </svg>
-                                    <svg id="light-ray-2" class="light-ray" viewBox="0 0 100 100">
-                                        <circle cx="50" cy="50" r="50"></circle>
-                                    </svg>
-                                    <svg id="light-ray-3" class="light-ray" viewBox="0 0 100 100">
-                                        <circle cx="50" cy="50" r="50"></circle>
-                                    </svg>
 
-                                    <svg id="cloud-1" class="cloud-dark" viewBox="0 0 100 100">
-                                        <circle cx="50" cy="50" r="50"></circle>
-                                    </svg>
-                                    <svg id="cloud-2" class="cloud-dark" viewBox="0 0 100 100">
-                                        <circle cx="50" cy="50" r="50"></circle>
-                                    </svg>
-                                    <svg id="cloud-3" class="cloud-dark" viewBox="0 0 100 100">
-                                        <circle cx="50" cy="50" r="50"></circle>
-                                    </svg>
-                                    <svg id="cloud-4" class="cloud-light" viewBox="0 0 100 100">
-                                        <circle cx="50" cy="50" r="50"></circle>
-                                    </svg>
-                                    <svg id="cloud-5" class="cloud-light" viewBox="0 0 100 100">
-                                        <circle cx="50" cy="50" r="50"></circle>
-                                    </svg>
-                                    <svg id="cloud-6" class="cloud-light" viewBox="0 0 100 100">
-                                        <circle cx="50" cy="50" r="50"></circle>
-                                    </svg>
-                                </div>
-                                <div class="stars">
-                                    <svg id="star-1" class="star" viewBox="0 0 20 20">
-                                        <path
-                                            d="M 0 10 C 10 10,10 10 ,0 10 C 10 10 , 10 10 , 10 20 C 10 10 , 10 10 , 20 10 C 10 10 , 10 10 , 10 0 C 10 10,10 10 ,0 10 Z"></path>
-                                    </svg>
-                                    <svg id="star-2" class="star" viewBox="0 0 20 20">
-                                        <path
-                                            d="M 0 10 C 10 10,10 10 ,0 10 C 10 10 , 10 10 , 10 20 C 10 10 , 10 10 , 20 10 C 10 10 , 10 10 , 10 0 C 10 10,10 10 ,0 10 Z"></path>
-                                    </svg>
-                                    <svg id="star-3" class="star" viewBox="0 0 20 20">
-                                        <path
-                                            d="M 0 10 C 10 10,10 10 ,0 10 C 10 10 , 10 10 , 10 20 C 10 10 , 10 10 , 20 10 C 10 10 , 10 10 , 10 0 C 10 10,10 10 ,0 10 Z"></path>
-                                    </svg>
-                                    <svg id="star-4" class="star" viewBox="0 0 20 20">
-                                        <path
-                                            d="M 0 10 C 10 10,10 10 ,0 10 C 10 10 , 10 10 , 10 20 C 10 10 , 10 10 , 20 10 C 10 10 , 10 10 , 10 0 C 10 10,10 10 ,0 10 Z"></path>
-                                    </svg>
-                                </div>
-                            </div>
-                        </label>
                         <!-- akun -->
                         <button id="profile-button"
                             class="relative flex max-w-xs items-center rounded-full focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">
@@ -393,8 +331,8 @@
                             class="hidden absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg outline-1 outline-black/5">
                             <a href="/akun"
                                 class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Akun</a>
-                            <a href="/test"
-                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Settings</a>
+                            <!-- <a href="/test"
+                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Settings</a> -->
                             <a href="#"
                                 onclick="event.preventDefault(); document.getElementById('logoutForm').submit();"
                                 class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Log-out</a>
@@ -451,8 +389,8 @@
             <div class="mt-3 space-y-1 px-2">
                 <a href="/akun"
                     class="block rounded-md px-3 py-2 text-base font-medium text-white hover:bg-gray-800 hover:text-white">Akun</a>
-                <a href="#"
-                    class="block rounded-md px-3 py-2 text-base font-medium text-white hover:bg-gray-800 hover:text-white">Settings</a>
+                <!-- <a href="#"
+                    class="block rounded-md px-3 py-2 text-base font-medium text-white hover:bg-gray-800 hover:text-white">Settings</a> -->
                 <a href="#"
                     onclick="event.preventDefault(); document.getElementById('logoutForm').submit();"
                     class="block rounded-md px-3 py-2 text-base font-medium text-white hover:bg-gray-800 hover:text-white ">Log-out</a>

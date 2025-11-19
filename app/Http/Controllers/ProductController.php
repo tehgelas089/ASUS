@@ -37,7 +37,7 @@ class ProductController extends Controller
             'image' => $imagePath,
         ]);
 
-        return redirect()->route('product.index')->with('success', 'Produk berhasil ditambahkan!');
+        return redirect()->route('product.index')->with('success', 'Menu berhasil ditambahkan!');
     }
 
     // 🔹 Tampilkan semua produk di halaman landing
@@ -71,7 +71,7 @@ class ProductController extends Controller
             'image' => $imagePath,
         ]);
 
-        return redirect()->route('product.index')->with('success', 'Produk berhasil diperbarui!');
+        return redirect()->route('product.index')->with('success', 'Menu berhasil diperbarui!');
     }
 
     // 🔹 Hapus produk
@@ -82,6 +82,6 @@ class ProductController extends Controller
         }
 
         $product->delete();
-        return redirect()->route('product.index')->with('success', 'Produk berhasil dihapus!');
+        return redirect()->route('product.index')->with('success', 'Menu berhasil dihapus!');
     }
 }

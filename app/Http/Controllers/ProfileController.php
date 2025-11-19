@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Revenue;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
@@ -19,8 +20,8 @@ class ProfileController extends Controller
 
         // Ambil user dari database
         $user = User::find($id);
-
-        return view('akun', compact('user'));
+        $total = Revenue::sum('income');
+        return view('akun', compact('user', 'total'));
     }
 
     // 🔥 Tambahan: Update Nama & Password
@@ -28,7 +29,8 @@ class ProfileController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'password' => 'nullable|min:3'
+            'password' => 'nullable|min:3',
+            'usr_card_url' => 'nullable|image|mimes:jpg,jpeg,png|max:2048'  // 🔥 validasi foto
         ]);
 
         $id   = session('user_id');
@@ -44,6 +46,15 @@ class ProfileController extends Controller
         // Update password hanya jika user mengisi password
         if ($request->password) {
             $user->password = Hash::make($request->password);
+        }
+
+        // 🔥 Upload foto profil (TAMBAHAN, tidak mengganggu kode lain)
+        if ($request->hasFile('usr_card_url')) {
+            $file = $request->file('usr_card_url');
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('uploads/profile'), $filename);
+
+            $user->usr_card_url = 'uploads/profile/' . $filename;
         }
 
         $user->save();

@@ -422,20 +422,27 @@
     button.bin {
       position: fixed;
       right: 16px;
-      /* jarak dari kiri */
       bottom: 16px;
-      /* jarak dari bawah */
       z-index: 1000;
-      /* agar muncul di atas elemen lain */
     }
   </style>
 
   <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8 ">
     @if(session('success'))
-    <div class="alert" role="alert">
+    <div class="alert relative pr-10" role="alert" id="successAlert">
       {{ session('success') }}
+
+      <!-- Tombol Close -->
+      <button
+        type="button"
+        id="closeAlertBtn"
+        class="absolute right-2 top-1/2 -translate-y-1/2 text-gray-700 hover:text-gray-900">
+        ✕
+      </button>
     </div>
     @endif
+
+
 
     <div class="wrapper ">
       <form class="shadow-lg shadow-teal-700 rounded-xl p-6" id="formTambah" action="{{ route('product.store') }}" method="POST" enctype="multipart/form-data">
@@ -697,6 +704,12 @@
       if (!currentDeleteId) return;
       deleteModal.classList.add('hidden');
 
+      // 🔥 HAPUS KARTU LANGSUNG (sebelum fetch)
+      if (currentDraggedCard) {
+        currentDraggedCard.remove();
+        currentDraggedCard = null;
+      }
+
       fetch(`/product/delete/${currentDeleteId}`, {
         method: 'POST',
         headers: {
@@ -716,6 +729,7 @@
       });
     });
 
+
     // event default tong sampah (tidak diubah)
     const bin = document.querySelector('button.bin');
     bin.addEventListener('dragover', function(e) {
@@ -734,6 +748,24 @@
       const productId = e.dataTransfer.getData('product-id');
       if (productId) {
         showDeleteModal(productId, 'produk ini');
+      }
+    });
+
+
+    //button x
+    document.addEventListener('DOMContentLoaded', () => {
+      const btn = document.getElementById('closeAlertBtn');
+      const alertBox = document.getElementById('successAlert');
+
+      if (btn && alertBox) {
+        btn.addEventListener('click', () => {
+          alertBox.style.transition = "opacity 0.3s ease";
+          alertBox.style.opacity = 0;
+
+          setTimeout(() => {
+            alertBox.remove();
+          }, 300);
+        });
       }
     });
   </script>
