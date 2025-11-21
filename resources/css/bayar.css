@@ -1,8 +1,4 @@
-<x-layout>
-  <x-slot:title>{{$title}}</x-slot:title>
-
-  <style>
-    .konten {
+    .container {
       max-width: 1100px;
       margin: 50px auto;
       padding: 0 20px;
@@ -11,7 +7,7 @@
       gap: 20px;
     }
 
-    .card {
+    .kartu {
       background-color: #5CB338;
       border-radius: 12px;
       overflow: hidden;
@@ -23,12 +19,12 @@
 
     }
 
-    .card h3 {
+    .kartu h3 {
       margin: 10px 0 5px;
       font-size: 1.2rem;
     }
 
-    .card p {
+    .kartu p {
       margin: 0;
       font-size: 1rem;
       color: white;
@@ -59,7 +55,7 @@
       border: none;
       /* font-size: 1rem; */
       background-color: #fff;
-      color: #000000;
+      /* color: #000000; */
     }
 
     .btn-primary {
@@ -142,7 +138,7 @@
       margin-left: 20px;
     }
 
-    .kartu {
+    .card {
       width: 70px;
       height: 46px;
       background-color: #c7ffbc;
@@ -157,7 +153,7 @@
       -webkit-box-shadow: 9px 9px 9px -2px rgba(77, 200, 143, 0.72);
     }
 
-    .kartu-line {
+    .card-line {
       width: 65px;
       height: 13px;
       background-color: #80ea69;
@@ -333,154 +329,3 @@
     .container:focus {
       outline: none;
     }
-  </style>
-
-  @if (session('success'))
-  <div id="notifBox"
-    style="background: #28a745; padding: 15px; border-radius: 8px; color: white; 
-              font-weight: bold; margin-bottom: 15px; text-align:center;">
-    {{ session('success') }}
-  </div>
-
-  <script>
-    setTimeout(() => {
-      const box = document.getElementById('notifBox');
-      if (box) box.style.display = 'none';
-    }, 3000);
-  </script>
-  @endif
-
-
-
-  <form action="{{ route('transaksi.store') }}" method="POST" id="formTransaksi">
-    @csrf
-
-    <!-- TEMPAT TAMPIL PESANAN -->
-    <div class="konten text-black" id="orderContainer"></div>
-
-    <!-- DATA UNTUK DIKIRIM KE LARAVEL -->
-    <input type="hidden" name="items" id="itemsField">
-    <input type="hidden" name="total_bayar" id="totalBayarField">
-    <input type="hidden" name="kembalian" id="kembalianField">
-
-    <div class="summary bg-gray-500 text-white" id="warna">
-      <label>Total Bayar</label>
-      <input type="number" name="total" id="totalBayar" readonly>
-
-      <label>Uang Pelanggan</label>
-      <input type="number" name="uang" id="uangPelanggan" min="0">
-
-      <label>Kembalian</label>
-      <input type="number" name="hasil" id="kembalian" readonly>
-
-      <!-- <button type="submit" class="btn bg-success p-3 w-100 mt-4 text-black fs-5 fw-bold" id="btnSimpan">
-        Simpan
-      </button> -->
-
-      <button type="submit" id="btnSimpan" class="container" id="cardBtn">
-
-        <div class="left-side">
-          <div class="kartu">
-            <div class="kartu-line"></div>
-            <div class="buttons"></div>
-          </div>
-
-          <div class="post">
-            <div class="post-line"></div>
-            <div class="screen">
-              <div class="dollar">$</div>
-            </div>
-            <div class="numbers"></div>
-            <div class="numbers-line2"></div>
-          </div>
-        </div>
-
-        <div class="right-side">
-          <div class="new">Simpan Transaksi</div>
-
-          <svg viewBox="0 0 451.846 451.847" height="512" width="512" xmlns="http://www.w3.org/2000/svg" class="arrow">
-            <path fill="#cfcfcf" d="M345.441 248.292L151.154 442.573c-12.359 12.365-32.397 12.365-44.75 0-12.354-12.354-12.354-32.391 0-44.744L278.318 225.92 106.409 54.017c-12.354-12.359-12.354-32.394 0-44.748 12.354-12.359 32.391-12.359 44.75 0l194.287 194.284c6.177 6.18 9.262 14.271 9.262 22.366 0 8.099-3.091 16.196-9.267 22.373z"></path>
-          </svg>
-        </div>
-
-      </button>
-
-
-
-    </div>
-  </form>
-
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const orderContainer = document.getElementById("orderContainer");
-      const totalBayarInput = document.getElementById("totalBayar");
-      const uangPelanggan = document.getElementById("uangPelanggan");
-      const kembalianInput = document.getElementById("kembalian");
-
-      const itemsField = document.getElementById("itemsField");
-      const totalBayarField = document.getElementById("totalBayarField");
-      const kembalianField = document.getElementById("kembalianField");
-
-      const pesanan = JSON.parse(localStorage.getItem("pesanan") || "[]");
-
-      let totalBayar = 0;
-
-      pesanan.forEach(item => {
-        const subtotal = item.price * item.qty;
-        totalBayar += subtotal;
-
-        orderContainer.innerHTML += `
-      <div class="card">
-        <h3>${item.name}</h3>
-        <p>Harga: ${item.price} | Jumlah: ${item.qty}</p>
-        <p>Subtotal: ${subtotal}</p>
-      </div>
-    `;
-      });
-
-      totalBayarInput.value = totalBayar;
-      totalBayarField.value = totalBayar;
-
-      uangPelanggan.addEventListener("input", () => {
-        const uang = parseInt(uangPelanggan.value) || 0;
-        const kembali = Math.max(0, uang - totalBayar);
-
-        kembalianInput.value = kembali;
-        kembalianField.value = kembali;
-      });
-
-      document.getElementById("formTransaksi").addEventListener("submit", function(e) {
-        const uang = parseInt(uangPelanggan.value) || 0;
-
-        // 🚫 Validasi uang kurang
-        if (uang < totalBayar) {
-          e.preventDefault();
-          alert("⚠️ Uang pelanggan kurang dari total bayar!");
-          return false;
-        }
-
-        itemsField.value = JSON.stringify(pesanan);
-        localStorage.removeItem("pesanan");
-      });
-    });
-
-
-    document.getElementById('cardBtn').addEventListener('click', function() {
-      this.classList.toggle('active');
-    });
-    // AMBIL WARNA DARI SESSION STORAGE
-    // const primary = sessionStorage.getItem('primaryColor');
-    // const secondary = sessionStorage.getItem('secondaryColor');
-
-    // if (primary) {
-    //   const colorElement = document.getElementById('color');
-    //   if (colorElement) colorElement.style.backgroundColor = primary;
-    // }
-
-    // if (secondary) {
-    //   const warnaElement = document.getElementById('warna');
-    //   if (warnaElement) warnaElement.style.backgroundColor = secondary;
-    // }
-  </script>
-
-</x-layout>

@@ -172,7 +172,7 @@
       /* Tombol lebih besar */
       line-height: 55px;
       border-radius: 12px;
-      background-color: #ff0066;
+      /* background-color: #16C47F; */
       color: #fff;
 
 
@@ -181,14 +181,14 @@
     }
 
     .btn-lanjut:hover {
-      background-color: #ff3385;
+      /* background-color: #399918; */
       transform: translateY(-2px);
     }
 
     .btn-batal {
       background-color: transparent;
-      border: 2px solid #985ad7;
-      color: #985ad7;
+      /* border: 2px solid #FF2929; */
+      color: #FF2929;
       padding: 12px 25px;
       border-radius: 12px;
       font-weight: 600;
@@ -198,7 +198,7 @@
     }
 
     .btn-batal:hover {
-      background-color: #985ad7;
+      /* background-color: #FF2929; */
       color: #fff;
     }
   </style>
@@ -217,8 +217,8 @@
 
   <div class="popup" id="popup">
     <p id="popupText">0 item dipilih</p>
-    <a href="{{ url('/app') }}" class="btn-lanjut w-100 h-50 fw-bold fs-5" id="btnLanjut">Lanjutkan ke Pemesanan</a>
-    <button class="btn-batal w-100 h-50 text-center fw-bold fs-5" id="btnBatal">Batalkan Pilihan</button>
+    <a href="{{ url('/app') }}" class="btn-lanjut w-100 h-50 fw-bold fs-5 bg-teal-500 hover:bg-teal-700" id="btnLanjut">Lanjutkan ke Pemesanan</a>
+    <button class="btn-batal w-100 h-50 text-center fw-bold fs-5 bg-red-600 hover:bg-red-800 border-red-500 border-2" id="btnBatal">Batalkan Pilihan</button>
   </div>
 
   <script>
