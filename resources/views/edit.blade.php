@@ -6,43 +6,70 @@
   <div class="garis bg-body min-h-screen flex items-center justify-center ">
 
 
-    <div class="w-full max-w-4xl bg-white shadow-lg shadow-teal-900 rounded-xl p-8 mx-auto flex flex-col md:flex-row items-center md:items-start gap-8 border-3 border-black">
-      <!-- Foto Profil -->
-      <div class="flex flex-col items-center md:w-1/3">
-        <div class="w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden border-4 border-gray-500">
-          <img src="https://via.placeholder.com/150" alt="Foto Profil" class="w-full h-full object-cover">
+    <div class="garis bg-body min-h-screen flex items-center justify-center">
+
+      <div class="w-full max-w-4xl bg-white shadow-lg shadow-teal-900 rounded-xl p-8 mx-auto flex flex-col md:flex-row items-center md:items-start gap-8 border-3 border-black">
+
+        <!-- Foto Profil -->
+        <div class="flex flex-col items-center md:w-1/3">
+          <div class="w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden border-4 border-gray-500">
+            <img
+              src="{{ asset($user->usr_card_url ?? '/logo/user_placeholder.jpg') }}"
+              class="w-full h-full object-cover"
+              alt="Foto Profil">
+          </div>
+
+          <label class="mt-3 text-sm font-medium cursor-pointer">
+            <span class="text-indigo-600 hover:text-indigo-800">Ganti Foto</span>
+            <input type="file" name="usr_card_url" id="fotoInput" class="hidden" accept="image/*" form="formEditAkun">
+          </label>
         </div>
-        <label class="mt-3 text-sm font-medium ">
-          <a href="#" class="text-decoration-none text-indigo-600 cursor-pointer hover:text-indigo-800">Ganti Foto</a>
-          <input type="file" class="hidden" accept="image/*">
-        </label>
+
+        <!-- Form Edit -->
+        <form id="formEditAkun" action="{{ route('profile.update') }}" method="POST" enctype="multipart/form-data" class="md:w-2/3">
+          @csrf
+          @method('PUT')
+
+          <!-- Input Nama -->
+          <div class="mb-4">
+            <label class="block text-sm font-medium text-gray-700 mb-1">Nama Pengguna</label>
+            <input
+              type="text"
+              name="name"
+              value="{{ $user->name }}"
+              class="w-full border rounded-md px-3 py-2 focus:ring-2 focus:ring-indigo-300 focus:border-indigo-400 outline-none">
+          </div>
+
+          <!-- Input Password -->
+          <div class="mb-6">
+            <label class="block text-sm font-medium text-gray-700 mb-1">
+              Password (kosongkan jika tidak ingin mengubah)
+            </label>
+            <input
+              type="password"
+              name="password"
+              class="w-full border rounded-md px-3 py-2 focus:ring-2 focus:ring-indigo-300 focus:border-indigo-400 outline-none">
+          </div>
+
+          <!-- Buttons -->
+          <div class="flex justify-end gap-3 mt-4">
+            <button
+              type="button"
+              onclick="history.back()"
+              class="px-4 py-2 border rounded-md text-gray-700 hover:bg-gray-100">
+              Batal
+            </button>
+
+            <button
+              type="submit"
+              class="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700">
+              Simpan
+            </button>
+          </div>
+        </form>
+
       </div>
-
-      <!-- Form Edit -->
-      <form action="{{ route('edit.update') }}" method="POST">
-        @csrf
-
-        <!-- Input Nama -->
-        <div class="mb-4">
-          <label class="block text-sm font-medium text-gray-700 mb-1">Nama Pengguna</label>
-          <input type="text" name="name" value="{{ $user->name }}"
-            class="w-full border rounded-md px-3 py-2 focus:ring-2 focus:ring-indigo-300 focus:border-indigo-400 outline-none">
-        </div>
-
-        <!-- Input Password -->
-        <div class="mb-6">
-          <label class="block text-sm font-medium text-gray-700 mb-1">Password (biarkan kosong jika tidak ingin mengganti)</label>
-          <input type="password" name="password"
-            class="w-full border rounded-md px-3 py-2 focus:ring-2 focus:ring-indigo-300 focus:border-indigo-400 outline-none">
-        </div>
-
-        <div class="flex justify-end gap-3">
-          <button type="button" onclick="history.back()" class="px-4 py-2 border rounded-md text-gray-700 hover:bg-gray-100">Batal</button>
-          <button type="submit" class="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700">Simpan</button>
-        </div>
-      </form>
-
-    </div>
+    </div>>
 
     <style>
       .button {

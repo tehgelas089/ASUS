@@ -301,7 +301,7 @@
                 <div class="hidden md:block">
                     <div class="ml-10 flex items-baseline space-x-4">
                         <a href="/landing"
-                            class="rounded-md hover:bg-gray-800 px-3 py-2 text-sm font-medium text-white">Dashboard</a>
+                            class="rounded-md hover:bg-gray-800 px-3 py-2 text-sm font-medium text-white">Menu</a>
                         <a href="/kelola"
                             class="rounded-md px-3 py-2 text-sm font-medium text-white hover:bg-gray-800 hover:text-white">Kelola menu</a>
 
@@ -335,7 +335,7 @@
                                 class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Settings</a> -->
                             <a href="#"
                                 onclick="event.preventDefault(); document.getElementById('logoutForm').submit();"
-                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Log-out</a>
+                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Keluar</a>
 
                             <form id="logoutForm" action="{{ route('logout') }}" method="POST" class="hidden">
                                 @csrf
@@ -367,7 +367,7 @@
     <!-- Mobile menu -->
     <div id="mobile-menu" class="hidden md:hidden">
         <div class="space-y-1 px-2 pt-2 pb-3 sm:px-3">
-            <a href="/landing" class="block rounded-md hover:bg-gray-800 px-3 py-2 text-base font-medium text-white">Dashboard</a>
+            <a href="/landing" class="block rounded-md hover:bg-gray-800 px-3 py-2 text-base font-medium text-white">Menu</a>
             <a href="/kelola"
                 class="block rounded-md px-3 py-2 text-base font-medium text-white hover:bg-gray-800 hover:text-white">Kelola menu</a>
 
@@ -393,7 +393,7 @@
                     class="block rounded-md px-3 py-2 text-base font-medium text-white hover:bg-gray-800 hover:text-white">Settings</a> -->
                 <a href="#"
                     onclick="event.preventDefault(); document.getElementById('logoutForm').submit();"
-                    class="block rounded-md px-3 py-2 text-base font-medium text-white hover:bg-gray-800 hover:text-white ">Log-out</a>
+                    class="block rounded-md px-3 py-2 text-base font-medium text-white hover:bg-gray-800 hover:text-white ">Keluar</a>
 
                 <form id="logoutForm" action="{{ route('logout') }}" method="POST" class="hidden">
                     @csrf

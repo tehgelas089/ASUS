@@ -13,24 +13,44 @@ class ProfileController extends Controller
     {
         $id = session('user_id');
 
-        // Kalau belum login
         if (!$id) {
             return redirect('/');
         }
 
-        // Ambil user dari database
         $user = User::find($id);
         $total = Revenue::sum('income');
-        return view('akun', compact('user', 'total'));
+
+        $history7days = Revenue::selectRaw('DATE(created_at) as date, SUM(income) as total_income')
+            ->where('created_at', '>=', now()->subDays(7))
+            ->groupBy('date')
+            ->orderBy('date', 'desc')
+            ->get();
+
+        return view('akun', compact('user', 'total', 'history7days'));
     }
 
-    // 🔥 Tambahan: Update Nama & Password
+    public function edit()
+    {
+        $id = session('user_id');
+        $user = User::find($id);
+
+        if (!$user) {
+            return redirect('/');
+        }
+
+        return view('edit', [
+            'user' => $user,
+            'title' => 'Edit Profil'
+        ]);
+    }
+
+    // 🔥 Update Nama, Password, dan Foto Profil
     public function update(Request $request)
     {
         $request->validate([
             'name' => 'required',
             'password' => 'nullable|min:3',
-            'usr_card_url' => 'nullable|image|mimes:jpg,jpeg,png|max:2048'  // 🔥 validasi foto
+            'usr_card_url' => 'nullable|image|mimes:jpg,jpeg,png|max:2048'
         ]);
 
         $id   = session('user_id');
@@ -40,20 +60,27 @@ class ProfileController extends Controller
             return redirect('/');
         }
 
-        // Update nama
+        // 🔥 Update nama
         $user->name = $request->name;
 
-        // Update password hanya jika user mengisi password
-        if ($request->password) {
+        // 🔥 Update password hanya jika diisi
+        if ($request->filled('password')) {
             $user->password = Hash::make($request->password);
         }
 
-        // 🔥 Upload foto profil (TAMBAHAN, tidak mengganggu kode lain)
+        // 🔥 Upload foto profil
         if ($request->hasFile('usr_card_url')) {
+
+            // Hapus foto lama jika ada
+            if ($user->usr_card_url && file_exists(public_path($user->usr_card_url))) {
+                unlink(public_path($user->usr_card_url));
+            }
+
             $file = $request->file('usr_card_url');
             $filename = time() . '_' . $file->getClientOriginalName();
             $file->move(public_path('uploads/profile'), $filename);
 
+            // Simpan path ke DB
             $user->usr_card_url = 'uploads/profile/' . $filename;
         }
 

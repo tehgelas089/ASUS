@@ -36,7 +36,7 @@ class TransactionController extends Controller
         //     'income' => $request->total_bayar,
         // ]);
 
-        // 🔥 Notif berhasil (ini aja yang aku tambahin)
+
         return redirect()->back()->with('success', 'Transaksi berhasil disimpan!');
     }
 }

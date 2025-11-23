@@ -3,18 +3,14 @@
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\RevenueController;
-use App\Http\Controllers\LoginController; // ✅ pakai LoginController
+use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 
+Route::get('/', [LoginController::class, 'showLogin'])->name('login');
 
-// =========================
-// 🔐 SISTEM LOGIN
-// =========================
-Route::get('/', [LoginController::class, 'showLogin'])->name('login'); // form login
-
-Route::post('/landing', [LoginController::class, 'loginOrRegister'])->name('login.process'); // proses login/daftar
+Route::post('/landing', [LoginController::class, 'loginOrRegister'])->name('login.process');
 
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
@@ -30,19 +26,13 @@ Route::middleware(['auth'])->group(function () {
 });
 
 
-// =========================
-// 🔧 ROUTE ASLI KAMU (tidak diubah)
-// =========================
 
-// Halaman transaksi
 Route::get('/app', [TransactionController::class, 'index'])->name('app');
 // Route::post('/transaksi', [TransactionController::class, 'store'])->name('transaksi.store');
 
 Route::get('/pendapatan', [RevenueController::class, 'index'])->name('pendapatan.index');
 
 
-
-// Kelola produk (CRUD)
 Route::get('/kelola', [ProductController::class, 'index'])->name('product.index');
 Route::post('/product/store', [ProductController::class, 'store'])->name('product.store');
 Route::post('/product/update/{product}', [ProductController::class, 'update'])->name('product.update');
@@ -57,8 +47,6 @@ Route::get('/test', function () {
 Route::post('/transaksi/store', [TransactionController::class, 'store'])
   ->name('transaksi.store');
 
+Route::get('/pendapatan-detail/{date}', [RevenueController::class, 'detail']);
 
-
-Route::get('/edit', function () {
-  return view('edit', ['title' => 'Ubah akun ']);
-});
+Route::get('/edit', [ProfileController::class, 'edit'])->name('edit.page');
