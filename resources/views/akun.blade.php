@@ -11,21 +11,21 @@
         <div class="row g-0 align-items-center">
 
           <div class="col-12 col-md-4 d-flex justify-content-center p-3">
-            <!-- <div class="text-center">
+            <div class="text-center">
               <img
                 alt="Foto Profil"
-                src="{{ asset($user->usr_card_url ?? '/logo/user_placeholder.jpg') }}"
+                src="{{ asset ('img/naruto.jpeg')}}"
                 class="rounded-circle shadow object-fit-cover"
                 style="width: 180px; height: 180px; object-fit: cover;">
               <br>
 
-              <label class="mt-3 text-sm font-medium">
+              <!-- <label class="mt-3 text-sm font-medium">
                 <a href="#" class="text-decoration-none text-indigo-600 cursor-pointer hover:text-indigo-800">
                   Ganti Foto
                 </a>
                 <input type="file" name="usr_card_url" class="hidden" accept="image/*">
-              </label>
-            </div> -->
+              </label> -->
+            </div>
           </div>
 
           <div class="col-12 col-md-8 d-flex flex-column justify-content-between" style="min-height: 180px;">
@@ -42,9 +42,9 @@
             </div>
 
             <div class="flex justify-end gap-3">
-              <button type="submit" class="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700">
+              <!-- <button type="submit" class="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700">
                 <a href="#">Edit</a>
-              </button>
+              </button> -->
 
               <button class="button bg-body flex-center" title="Riwayat Data" onclick="toggleHistory()">
                 <i class="bi bi-clock-history text-primary fs-4"></i>
@@ -185,7 +185,7 @@
         <div class="max-h-72 overflow-y-auto border rounded"> 
             <table class="w-full text-left">
                 <thead>
-                    <tr class="bg-gray-200 sticky top-0">
+                    <tr class="bg-teal-200 sticky top-0">
                         <th class="px-3 py-2">Nama Produk</th>
                         <th class="px-3 py-2">Pendapatan</th>
                     </tr>

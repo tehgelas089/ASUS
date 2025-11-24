@@ -6,16 +6,14 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
+
     public function up()
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
-            // ✅ perbaikan di sini
+
             $table->foreignId('product_id')
-                ->nullable() // harus diletakkan sebelum constrained()
+                ->nullable()
                 ->constrained('products')
                 ->onDelete('set null');
             $table->text('product_name');
@@ -26,9 +24,7 @@ return new class extends Migration
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
+
     public function down(): void
     {
         Schema::dropIfExists('transactions');

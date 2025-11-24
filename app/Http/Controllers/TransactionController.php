@@ -9,7 +9,7 @@ use App\Models\Transaction;
 
 class TransactionController extends Controller
 {
-    // 🔹 Tampilkan halaman transaksi
+
     public function index()
     {
         $products = Product::all();
@@ -19,10 +19,10 @@ class TransactionController extends Controller
         ]);
     }
 
-    // 🔹 Simpan transaksi
+
     public function store(Request $request)
     {
-        // Simpan transaksi ke DB
+
         $transaction = Transaction::create([
             'product_name' => $request->items,
             'price' => $request->total_bayar,

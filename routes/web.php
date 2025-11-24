@@ -15,10 +15,8 @@ Route::post('/landing', [LoginController::class, 'loginOrRegister'])->name('logi
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 
-Route::get('/akun', function () {
-  return app(App\Http\Controllers\ProfileController::class)->index()
-    ->with('title', 'akun saya');
-});
+Route::get('/akun', [ProfileController::class, 'akun'])->name('akun');
+
 
 Route::middleware(['auth'])->group(function () {
   Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

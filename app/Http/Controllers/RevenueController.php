@@ -12,17 +12,16 @@ class RevenueController extends Controller
     {
         $id = session('user_id');
 
-        // Total income semua
+
         $total = Revenue::sum('income');
 
         $user = User::find($id);
 
-        // Data revenue utama
+
         $revenues = Revenue::with('transaction')
             ->orderBy('created_at', 'desc')
             ->paginate(10);
 
-        // 🔥 Ambil pendapatan 7 hari terakhir untuk tampilan di akun
         $history7days = Revenue::selectRaw('DATE(created_at) as date, SUM(income) as total_income')
             ->where('created_at', '>=', now()->subDays(7))
             ->groupBy('date')
@@ -34,14 +33,14 @@ class RevenueController extends Controller
             'total' => $total,
             'title' => 'Halaman Pendapatan',
             'user' => $user,
-            'history7days' => $history7days, // ⬅ ditambah
+            'history7days' => $history7days,
         ]);
     }
 
-    // 🔥 Untuk modal ketika tanggal diklik
+
     public function detail($date)
     {
-        $detail = Revenue::with('transaction') // ← penting
+        $detail = Revenue::with('transaction')
             ->whereDate('created_at', $date)
             ->get();
 

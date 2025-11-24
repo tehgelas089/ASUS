@@ -29,6 +29,21 @@ class ProfileController extends Controller
         return view('akun', compact('user', 'total', 'history7days'));
     }
 
+    //  Method tambahan 
+    public function akun()
+    {
+
+        $response = $this->index();
+
+
+        if ($response instanceof \Illuminate\Http\RedirectResponse) {
+            return $response;
+        }
+
+
+        return $response->with('title', 'akun saya');
+    }
+
     public function edit()
     {
         $id = session('user_id');
@@ -44,7 +59,7 @@ class ProfileController extends Controller
         ]);
     }
 
-    // 🔥 Update Nama, Password, dan Foto Profil
+
     public function update(Request $request)
     {
         $request->validate([
@@ -60,18 +75,17 @@ class ProfileController extends Controller
             return redirect('/');
         }
 
-        // 🔥 Update nama
+
         $user->name = $request->name;
 
-        // 🔥 Update password hanya jika diisi
+
         if ($request->filled('password')) {
             $user->password = Hash::make($request->password);
         }
 
-        // 🔥 Upload foto profil
         if ($request->hasFile('usr_card_url')) {
 
-            // Hapus foto lama jika ada
+
             if ($user->usr_card_url && file_exists(public_path($user->usr_card_url))) {
                 unlink(public_path($user->usr_card_url));
             }
@@ -80,7 +94,7 @@ class ProfileController extends Controller
             $filename = time() . '_' . $file->getClientOriginalName();
             $file->move(public_path('uploads/profile'), $filename);
 
-            // Simpan path ke DB
+
             $user->usr_card_url = 'uploads/profile/' . $filename;
         }
 

@@ -7,7 +7,7 @@ use App\Models\Product;
 
 class ProductController extends Controller
 {
-    // 🔹 Tampilkan halaman kelola produk
+
     public function index()
     {
         $products = Product::all();
@@ -17,7 +17,7 @@ class ProductController extends Controller
         ]);
     }
 
-    // 🔹 Simpan produk baru
+
     public function store(Request $request)
     {
         $request->validate([
@@ -40,7 +40,7 @@ class ProductController extends Controller
         return redirect()->route('product.index')->with('success', 'Menu berhasil ditambahkan!');
     }
 
-    // 🔹 Tampilkan semua produk di halaman landing
+
     public function showLanding()
     {
         $products = Product::all();
@@ -50,7 +50,7 @@ class ProductController extends Controller
         ]);
     }
 
-    // 🔹 Update produk
+
     public function update(Request $request, Product $product)
     {
         $request->validate([
@@ -74,7 +74,7 @@ class ProductController extends Controller
         return redirect()->route('product.index')->with('success', 'Menu berhasil diperbarui!');
     }
 
-    // 🔹 Hapus produk
+
     public function destroy(Product $product)
     {
         if ($product->image && file_exists(storage_path('app/public/' . $product->image))) {

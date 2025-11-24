@@ -279,7 +279,6 @@
 </style>
 
 <script>
-    // ambil warna dari sessionStorage dan terapkan
     const savedColor = sessionStorage.getItem('themeColor');
     if (savedColor) {
         const colorElement = document.getElementById('color');
@@ -288,7 +287,7 @@
         }
     }
 </script>
-<!-- navbar -->
+
 <nav class=" sticky top-0 z-50" id="color" style="background-color: #F72798;">
 
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -317,10 +316,9 @@
                 <div class="ml-4 flex items-center md:ml-6">
 
 
-                    <!-- Profile dropdown -->
                     <div class="relative ml-3 flex gap-4">
 
-                        <!-- akun -->
+
                         <button id="profile-button"
                             class="relative flex max-w-xs items-center rounded-full focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">
                             <img src="{{ asset ('img/naruto.jpeg')}}"
@@ -345,7 +343,7 @@
                     </div>
                 </div>
             </div>
-            <!-- Mobile menu button -->
+
             <div class="-mr-2 flex md:hidden">
                 <button id="mobile-menu-button" type="button"
                     class="relative inline-flex items-center justify-center rounded-md p-2 text-white hover:bg-black/30  focus:outline-2 focus:outline-offset-2 focus:outline-indigo-500">
@@ -407,7 +405,6 @@
 
 
 <script>
-    // --- Toggle profile menu ---
     const profileButton = document.getElementById('profile-button');
     const profileMenu = document.getElementById('profile-menu');
 
@@ -421,7 +418,7 @@
         }
     });
 
-    // --- Toggle mobile menu ---
+
     const mobileButton = document.getElementById('mobile-menu-button');
     const mobileMenu = document.getElementById('mobile-menu');
     const iconOpen = document.getElementById('icon-open');
