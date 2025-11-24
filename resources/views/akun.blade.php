@@ -43,7 +43,7 @@
 
             <div class="flex justify-end gap-3">
               <button type="submit" class="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700">
-                <a href="/edit">Edit</a>
+                <a href="#">Edit</a>
               </button>
 
               <button class="button bg-body flex-center" title="Riwayat Data" onclick="toggleHistory()">

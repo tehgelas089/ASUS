@@ -18,7 +18,7 @@ return new class extends Migration
                 ->nullable() // harus diletakkan sebelum constrained()
                 ->constrained('products')
                 ->onDelete('set null');
-            $table->string('product_name');
+            $table->text('product_name');
             $table->integer('price');
             $table->integer('money_received');
             $table->integer('change');
