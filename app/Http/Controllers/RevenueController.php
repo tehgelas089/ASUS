@@ -41,7 +41,10 @@ class RevenueController extends Controller
     // 🔥 Untuk modal ketika tanggal diklik
     public function detail($date)
     {
-        $detail = Revenue::whereDate('created_at', $date)->get();
+        $detail = Revenue::with('transaction') // ← penting
+            ->whereDate('created_at', $date)
+            ->get();
+
         return response()->json($detail);
     }
 }

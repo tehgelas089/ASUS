@@ -11,7 +11,7 @@
         <div class="row g-0 align-items-center">
 
           <div class="col-12 col-md-4 d-flex justify-content-center p-3">
-            <div class="text-center">
+            <!-- <div class="text-center">
               <img
                 alt="Foto Profil"
                 src="{{ asset($user->usr_card_url ?? '/logo/user_placeholder.jpg') }}"
@@ -25,7 +25,7 @@
                 </a>
                 <input type="file" name="usr_card_url" class="hidden" accept="image/*">
               </label>
-            </div>
+            </div> -->
           </div>
 
           <div class="col-12 col-md-8 d-flex flex-column justify-content-between" style="min-height: 180px;">
@@ -146,6 +146,34 @@
       }
     });
 
+    function formatProductName(transaction) {
+      if (!transaction) return "-";
+
+      let items = [];
+
+      // Coba decode product_name
+      try {
+        items = JSON.parse(transaction.product_name);
+      } catch (e) {}
+
+      // Kalau kosong → coba items
+      if (!Array.isArray(items) || items.length === 0) {
+        try {
+          items = JSON.parse(transaction.items || '[]');
+        } catch (e) {}
+      }
+
+      // Kalau array berisi
+      if (Array.isArray(items) && items.length > 0) {
+        return items.map(i => i.name).join(', ');
+      }
+
+      // fallback
+      return transaction.product_name || "-";
+    }
+
+
+
     function openModal(date) {
       fetch(`/pendapatan-detail/${date}`)
         .then(response => response.json())
@@ -158,7 +186,7 @@
             <table class="w-full text-left">
                 <thead>
                     <tr class="bg-gray-200 sticky top-0">
-                        <th class="px-3 py-2">Transaksi ID</th>
+                        <th class="px-3 py-2">Nama Produk</th>
                         <th class="px-3 py-2">Pendapatan</th>
                     </tr>
                 </thead>
@@ -168,7 +196,7 @@
           data.forEach(item => {
             html += `
             <tr class="border-b">
-                <td class="px-3 py-2">${item.transaction_id}</td>
+                <td class="px-3 py-2">${formatProductName(item.transaction)}</td>
                 <td class="px-3 py-2">Rp${Number(item.income).toLocaleString()}</td>
             </tr>
         `;
