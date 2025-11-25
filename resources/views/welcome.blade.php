@@ -8,59 +8,10 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="{{ asset('css/login.css') }}">
     @vite('resources/css/app.css')
 </head>
 
-<style>
-    @media (max-width: 992px) {
-        .row.g-0 {
-            position: relative;
-        }
-
-        .row.g-0 .col-8 {
-            width: 100%;
-        }
-
-        .row.g-0 .col-8 img {
-            width: 100%;
-            height: 100vh;
-            object-fit: cover;
-            filter: brightness(0.6);
-        }
-
-        .row.g-0 .col-4 {
-            position: absolute;
-            inset: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: none;
-            width: 100%;
-            height: 100%;
-            padding: 20px;
-        }
-
-        .row.g-0 .col-4>.d-flex {
-            /* Warna pink transparan — beneran tembus gambar */
-            background-color: rgba(247, 39, 152, 0.4) !important;
-            padding: 30px 25px;
-            border-radius: 15px;
-            width: 100%;
-            max-width: 400px;
-            box-shadow: rgba(0, 0, 0, 0.3) 0px 8px 25px;
-            backdrop-filter: blur(2px);
-            /* biar ada efek kaca bening */
-        }
-
-        .row.g-0 .col-4 .w-100 {
-            max-width: 100%;
-        }
-
-        .control {
-            width: 100%;
-        }
-    }
-</style>
 </head>
 
 <body class="m-0 p-0">
@@ -91,6 +42,19 @@
                             {{ $errors->first() }}
                         </div>
                         @endif
+
+                        @if ($errors->has('first_user_error'))
+                        <div class="bg-red-600 text-white p-2 mb-3 rounded text-center">
+                            {{ $errors->first('first_user_error') }}
+                        </div>
+                        @endif
+
+                        @if ($errors->has('input_kosong'))
+                        <div class="bg-red-600 text-white p-2 mb-3 rounded text-center">
+                            {{ $errors->first('input_kosong') }}
+                        </div>
+                        @endif
+
 
                         @if ($errors->any())
                         <form action="{{ route('reset.users') }}" method="POST" class="text-center mt-2">

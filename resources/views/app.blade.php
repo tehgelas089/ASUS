@@ -97,7 +97,6 @@
 
       pesanan.forEach(item => {
 
-
         const price = parseInt(String(item.price).replace(/\./g, ''));
 
         const subtotal = price * item.qty;
@@ -117,6 +116,16 @@
 
       uangPelanggan.addEventListener("input", () => {
         const uang = parseInt(uangPelanggan.value) || 0;
+
+        
+        const MAX_UANG = 999999999999;
+        if (uang > MAX_UANG) {
+          document.getElementById("notifError").textContent = "⚠️ Uang pelanggan terlalu besar!";
+          kembalianInput.value = 0;
+          kembalianField.value = 0;
+          return;
+        }
+
         const kembali = Math.max(0, uang - totalBayar);
 
         kembalianInput.value = kembali;
@@ -128,6 +137,14 @@
       document.getElementById("formTransaksi").addEventListener("submit", function(e) {
         const uang = parseInt(uangPelanggan.value) || 0;
 
+       
+        const MAX_UANG = 999999999999;
+        if (uang > MAX_UANG) {
+          e.preventDefault();
+          const notif = document.getElementById("notifError");
+          notif.textContent = "⚠️ Uang pelanggan terlalu besar!";
+          return false;
+        }
 
         if (uang < totalBayar) {
           e.preventDefault();
@@ -137,7 +154,6 @@
 
           return false;
         }
-
 
         itemsField.value = JSON.stringify(pesanan);
         localStorage.removeItem("pesanan");
@@ -151,18 +167,7 @@
 
 
 
-    // const primary = sessionStorage.getItem('primaryColor');
-    // const secondary = sessionStorage.getItem('secondaryColor');
-
-    // if (primary) {
-    //   const colorElement = document.getElementById('color');
-    //   if (colorElement) colorElement.style.backgroundColor = primary;
-    // }
-
-    // if (secondary) {
-    //   const warnaElement = document.getElementById('warna');
-    //   if (warnaElement) warnaElement.style.backgroundColor = secondary;
-    // }
+    
   </script>
 
 </x-layout>

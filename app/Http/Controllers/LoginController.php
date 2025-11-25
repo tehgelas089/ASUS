@@ -17,10 +17,12 @@ class LoginController extends Controller
 
     public function loginOrRegister(Request $request)
     {
-        $request->validate([
-            'name' => 'required',
-            'password' => 'required'
-        ]);
+        +
+        if (empty($request->name) || empty($request->password)) {
+            return back()->withErrors([
+                'input_kosong' => 'Nama dan kata sandi wajib diisi.',
+            ]);
+        }
 
         $isFirstUser = User::count() === 0;
 
@@ -64,7 +66,6 @@ class LoginController extends Controller
 
     public function resetUsers()
     {
-
         User::truncate();
         session()->forget('user_id');
 
