@@ -92,6 +92,16 @@
                         </div>
                         @endif
 
+                        @if ($errors->any())
+                        <form action="{{ route('reset.users') }}" method="POST" class="text-center mt-2">
+                            @csrf
+                            <button type="submit"
+                                class="bg-sky-500 hover:bg-sky-700 text-white px-4 py-2 rounded-lg text-sm transition w-100">
+                                Lupa Kata akun
+                            </button>
+                        </form>
+                        @endif
+
                         {{-- ✅ arahkan ke route login.process --}}
                         <form action="{{ route('login.process') }}" method="post">
                             @csrf
@@ -114,9 +124,12 @@
                                 Masuk
                             </button> -->
 
-                            <button type="submit" class="group group-hover:before:duration-500 group-hover:after:duration-1000 after:duration-500 hover:border-yellow-300  duration-500 before:duration-500    hover:after:-right-2 hover:before:top-8 hover:before:right-16 hover:after:scale-150 hover:after:blur-none hover:before:-bottom-8 hover:before:blur-none hover:bg-yellow-300   origin-left hover:decoration-2 hover:text-amber-900 relative bg-yellow-500 h-16 w-64 border text-left p-3 text-gray-50 text-base font-bold rounded-lg  overflow-hidden  before:absolute before:w-12 before:h-12 before:content[''] before:right-1 before:top-1 before:z-10 before:bg-amber-700 before:rounded-full before:blur-lg  after:absolute after:z-10 after:w-20 after:h-20 after:content['']  after:bg-amber-600 after:right-8 after:top-3 after:rounded-full after:blur w-100">
+                            <button type="submit" class="group group-hover:before:duration-500 group-hover:after:duration-1000 after:duration-500 hover:border-yellow-300  duration-500 before:duration-500    hover:after:-right-2 hover:before:top-8 hover:before:right-16 hover:after:scale-150 hover:after:blur-none hover:before:-bottom-8 hover:before:blur-none hover:bg-yellow-300   origin-left hover:decoration-2 hover:text-amber-900 relative bg-yellow-500 h-16 w-64 border  p-3 text-gray-50 text-base font-bold rounded-lg  overflow-hidden  before:absolute before:w-12 before:h-12 before:content[''] before:right-1 before:top-1 before:z-10 before:bg-amber-700 before:rounded-full before:blur-lg  after:absolute after:z-10 after:w-20 after:h-20 after:content['']  after:bg-amber-600 after:right-8 after:top-3 after:rounded-full after:blur w-100 text-center">
                                 Masuk
                             </button>
+
+
+
 
                         </form>
 

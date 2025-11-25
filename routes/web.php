@@ -14,6 +14,8 @@ Route::post('/landing', [LoginController::class, 'loginOrRegister'])->name('logi
 
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
+Route::post('/reset-users', [LoginController::class, 'resetUsers'])->name('reset.users');
+
 
 Route::get('/akun', [ProfileController::class, 'akun'])->name('akun');
 

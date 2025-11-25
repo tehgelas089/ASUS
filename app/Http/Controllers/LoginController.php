@@ -22,7 +22,6 @@ class LoginController extends Controller
             'password' => 'required'
         ]);
 
-
         $isFirstUser = User::count() === 0;
 
         if ($isFirstUser) {
@@ -36,9 +35,7 @@ class LoginController extends Controller
             return redirect('/landing');
         }
 
-
         $user = User::where('name', $request->name)->first();
-
 
         if (!$user) {
             return back()->withErrors([
@@ -46,12 +43,10 @@ class LoginController extends Controller
             ])->withInput();
         }
 
-
         if (Hash::check($request->password, $user->password)) {
             session(['user_id' => $user->id]);
             return redirect('/landing');
         }
-
 
         return back()->withErrors([
             'password' => 'Kata sandi salah.',
@@ -63,5 +58,16 @@ class LoginController extends Controller
     {
         session()->forget('user_id');
         return redirect('/');
+    }
+
+
+
+    public function resetUsers()
+    {
+
+        User::truncate();
+        session()->forget('user_id');
+
+        return view('welcome')->with('reset_done', true);
     }
 }

@@ -13,10 +13,25 @@ class RevenueController extends Controller
         $id = session('user_id');
 
 
+        $yesterday = now()->subDay()->toDateString();
+
+        $yesterdayTotal = Revenue::whereDate('created_at', $yesterday)->sum('income');
+
+        if ($yesterdayTotal > 0) {
+
+            \App\Models\RevenueHistory::create([
+                'date' => $yesterday,
+                'total_income' => $yesterdayTotal
+            ]);
+
+            Revenue::whereDate('created_at', $yesterday)->delete();
+        }
+
+
+
         $total = Revenue::sum('income');
 
         $user = User::find($id);
-
 
         $revenues = Revenue::with('transaction')
             ->orderBy('created_at', 'desc')
