@@ -2,6 +2,23 @@
   <x-slot:title>{{$title}}</x-slot:title>
   <link rel="stylesheet" href="{{ asset('css/dasbor.css') }}">
 
+  @if (session('success'))
+  <div id="notifLanding"
+    style="background:#22c55e; padding:14px; border-radius:8px; color:white;
+         font-weight:bold; text-align:center; margin-bottom:15px;">
+    {{ session('success') }}
+  </div>
+
+  <script>
+    setTimeout(() => {
+      const box = document.getElementById('notifLanding');
+      if (box) box.style.display = 'none';
+    }, 3000);
+  </script>
+  @endif
+
+
+
 
   <div class="product-list ">
     @foreach ($products as $product)
@@ -11,6 +28,14 @@
         <h3 class="fs-5 text-black fw-bold">{{ $product->name }}</h3>
         <p class="fs-5 fw-bold text-black m-0">Rp {{ number_format($product->price, 0, ',', '.') }}</p>
       </div>
+
+      <!-- button kurang -->
+      <button class="pushable">
+        <span class="shadow"></span>
+        <span class="edge"></span>
+        <span class="front"> Kurangi </span>
+      </button>
+
     </div>
     @endforeach
   </div>
@@ -22,7 +47,7 @@
   </div>
 
   <script>
-    const cards = document.querySelectorAll(".product-card"); // ✅ pakai .product-card
+    const cards = document.querySelectorAll(".product-card");
 
     const popup = document.getElementById("popup");
     const popupText = document.getElementById("popupText");
@@ -32,7 +57,16 @@
     let selectedItems = new Map();
 
     cards.forEach(card => {
-      card.addEventListener("click", () => {
+      const buttonKurang = card.querySelector(".pushable"); // tombol kurang
+
+      // === TAMBAHAN: tombol kurang disembunyikan saat awal ===
+      buttonKurang.style.display = "none";
+
+      // Klik card untuk tambah
+      card.addEventListener("click", (e) => {
+        // Supaya klik tombol kurang tidak menambah jumlah
+        if (e.target.closest(".pushable")) return;
+
         const title = card.querySelector("h3").textContent;
         let count = selectedItems.get(title) || 0;
         count++;
@@ -48,33 +82,54 @@
         }
         badge.textContent = count;
 
+        // === Tampilkan tombol kurang ===
+        buttonKurang.style.display = "block";
+
         updatePopup();
       });
+
+      // === Klik tombol kurang ===
+      buttonKurang.addEventListener("click", (e) => {
+        e.stopPropagation(); // supaya klik tombol tidak dianggap klik card
+
+        const title = card.querySelector("h3").textContent;
+        let count = selectedItems.get(title) || 0;
+
+        if (count > 1) {
+          selectedItems.set(title, count - 1);
+          card.querySelector(".quantity-badge").textContent = count - 1;
+        } else {
+          // Jika jumlah sudah 1 dan dikurang → hapus item
+          selectedItems.delete(title);
+          card.classList.remove("selected");
+
+          const badge = card.querySelector(".quantity-badge");
+          if (badge) badge.remove();
+
+          // === Sembunyikan tombol kurang ===
+          buttonKurang.style.display = "none";
+        }
+
+        updatePopup();
+      });
+
     });
 
     function updatePopup() {
-      // Mengambil jumlah item unik (selectedItems.size)
       const totalUniqueItems = selectedItems.size;
-      // Menghitung total porsi (sum of quantities)
       const totalQty = Array.from(selectedItems.values()).reduce((a, b) => a + b, 0);
 
       if (totalUniqueItems > 0) {
         popup.classList.add("active");
         popupText.textContent = `${totalUniqueItems} menu dipilih (${totalQty} porsi)`;
-
-        // ✅ Tambahkan ruang di bawah halaman supaya popup tidak menutupi konten
         document.body.style.paddingBottom = popup.offsetHeight + "px";
       } else {
         popup.classList.remove("active");
-
-        // ✅ Hapus ruang bawah ketika popup disembunyikan
         document.body.style.paddingBottom = "0";
       }
     }
 
-    // === Simpan pesanan ke localStorage dan lanjutkan ===
     btnLanjut.addEventListener("click", (e) => {
-      // Mencegah navigasi default jika keranjang kosong
       if (selectedItems.size === 0) {
         e.preventDefault();
         return;
@@ -82,7 +137,6 @@
 
       const order = Array.from(selectedItems, ([name, qty]) => {
         const card = Array.from(cards).find(c => c.querySelector("h3").textContent === name);
-        // Pastikan price diambil sebagai integer
         const price = parseInt(card.dataset.price);
         return {
           name,
@@ -92,21 +146,23 @@
       });
 
       localStorage.setItem("pesanan", JSON.stringify(order));
-      // Navigasi akan dilanjutkan oleh link <a> default, tidak perlu window.location.href di sini
     });
 
-    // Batalkan semua pilihan
     btnBatal.addEventListener("click", () => {
       selectedItems.clear();
       cards.forEach(c => {
         c.classList.remove("selected");
         const b = c.querySelector(".quantity-badge");
         if (b) b.remove();
-      });
-      popup.classList.remove("active");
 
-      // ✅ Hapus ruang bawah ketika popup ditutup
+        // === Sembunyikan tombol kurang pada semua card ===
+        const btn = c.querySelector(".pushable");
+        btn.style.display = "none";
+      });
+
+      popup.classList.remove("active");
       document.body.style.paddingBottom = "0";
     });
   </script>
+
 </x-layout>

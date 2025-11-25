@@ -14,7 +14,7 @@
             <div class="text-center">
               <img
                 alt="Foto Profil"
-                src="{{ asset ('img/naruto.jpeg')}}"
+                src="{{ asset ('img/icon.jpg')}}"
                 class="rounded-circle shadow object-fit-cover"
                 style="width: 180px; height: 180px; object-fit: cover;">
               <br>

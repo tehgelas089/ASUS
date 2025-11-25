@@ -37,6 +37,6 @@ class TransactionController extends Controller
         // ]);
 
 
-        return redirect()->back()->with('success', 'Transaksi berhasil disimpan!');
+        return redirect('/landing')->with('success', 'Transaksi berhasil disimpan!');
     }
 }

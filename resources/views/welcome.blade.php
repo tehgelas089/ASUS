@@ -109,10 +109,15 @@
                                 </button>
                             </div>
 
-                            <button type="submit"
+                            <!-- <button type="submit"
                                 class="control w-full bg-yellow-500 hover:bg-yellow-600 text-black/60 font-semibold py-3 rounded-lg transition fs-5 fw-bold">
                                 Masuk
+                            </button> -->
+
+                            <button type="submit" class="group group-hover:before:duration-500 group-hover:after:duration-1000 after:duration-500 hover:border-yellow-300  duration-500 before:duration-500    hover:after:-right-2 hover:before:top-8 hover:before:right-16 hover:after:scale-150 hover:after:blur-none hover:before:-bottom-8 hover:before:blur-none hover:bg-yellow-300   origin-left hover:decoration-2 hover:text-amber-900 relative bg-yellow-500 h-16 w-64 border text-left p-3 text-gray-50 text-base font-bold rounded-lg  overflow-hidden  before:absolute before:w-12 before:h-12 before:content[''] before:right-1 before:top-1 before:z-10 before:bg-amber-700 before:rounded-full before:blur-lg  after:absolute after:z-10 after:w-20 after:h-20 after:content['']  after:bg-amber-600 after:right-8 after:top-3 after:rounded-full after:blur w-100">
+                                Masuk
                             </button>
+
                         </form>
 
                     </div>

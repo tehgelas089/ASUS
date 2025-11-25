@@ -24,7 +24,7 @@
   <form action="{{ route('transaksi.store') }}" method="POST" id="formTransaksi">
     @csrf
 
-    <!-- TEMPAT TAMPIL PESANAN -->
+
     <div class="konten text-black " id="orderContainer"></div>
 
 
@@ -97,7 +97,7 @@
 
       pesanan.forEach(item => {
 
-        // 🧹 BERSIHKAN FORMAT HARGA (hapus titik ribuan)
+
         const price = parseInt(String(item.price).replace(/\./g, ''));
 
         const subtotal = price * item.qty;
@@ -128,8 +128,7 @@
       document.getElementById("formTransaksi").addEventListener("submit", function(e) {
         const uang = parseInt(uangPelanggan.value) || 0;
 
-        // 🚫 Validasi uang kurang
-        // 🚫 Validasi uang kurang → tampilkan notif (bukan alert)
+
         if (uang < totalBayar) {
           e.preventDefault();
 
@@ -151,7 +150,7 @@
     });
 
 
-    // AMBIL WARNA DARI SESSION STORAGE
+
     // const primary = sessionStorage.getItem('primaryColor');
     // const secondary = sessionStorage.getItem('secondaryColor');
 

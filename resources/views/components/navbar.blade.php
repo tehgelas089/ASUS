@@ -1,4 +1,6 @@
 <!-- navbar -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 <style>
     a {
         text-decoration: none !important;
@@ -321,19 +323,19 @@
 
                         <button id="profile-button"
                             class="relative flex max-w-xs items-center rounded-full focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">
-                            <img src="{{ asset ('img/naruto.jpeg')}}"
-                                alt="" class="size-9 rounded-full outline -outline-offset-1 outline-white/10 hover:bg-primary" />
+                            <img src="{{ asset ('img/icon.jpg')}}"
+                                alt="" class="size-9 rounded-full outlin`e -outline-offset-1 outline-white/10 hover:bg-primary" />
                         </button>
 
                         <div id="profile-menu"
                             class="hidden absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg outline-1 outline-black/5">
                             <a href="/akun"
-                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Akun</a>
+                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-300">Akun</a>
                             <!-- <a href="/test"
                                 class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Settings</a> -->
                             <a href="#"
                                 onclick="event.preventDefault(); document.getElementById('logoutForm').submit();"
-                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Keluar</a>
+                                class="block px-4 py-2 text-sm text-red-700 hover:bg-red-300"><i class="bi bi-box-arrow-left text-danger"></i>Keluar</a>
 
                             <form id="logoutForm" action="{{ route('logout') }}" method="POST" class="hidden">
                                 @csrf
@@ -391,7 +393,7 @@
                     class="block rounded-md px-3 py-2 text-base font-medium text-white hover:bg-gray-800 hover:text-white">Settings</a> -->
                 <a href="#"
                     onclick="event.preventDefault(); document.getElementById('logoutForm').submit();"
-                    class="block rounded-md px-3 py-2 text-base font-medium text-white hover:bg-gray-800 hover:text-white ">Keluar</a>
+                    class="block rounded-md px-3 py-2 text-base font-medium text-white hover:bg-gray-800 hover:text-white"> <i class="bi bi-box-arrow-left text-white"></i>Keluar</a>
 
                 <form id="logoutForm" action="{{ route('logout') }}" method="POST" class="hidden">
                     @csrf
