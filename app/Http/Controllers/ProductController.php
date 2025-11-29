@@ -20,11 +20,26 @@ class ProductController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
-            'name' => 'required|string|max:100',
-            'price' => 'required|numeric|min:0',
-            'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
-        ]);
+
+        try {
+            $request->validate([
+                'name' => 'required|string|max:100',
+                'price' => 'required|numeric|min:0',
+                'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+            ], [
+                'name.required' => 'Nama produk wajib diisi!',
+                'price.required' => 'Harga wajib diisi!',
+                'price.numeric' => 'Harga harus berupa angka!',
+                'price.min' => 'Harga tidak boleh minus!',
+                'image.image' => 'File harus berupa gambar!',
+                'image.mimes' => 'Gambar hanya boleh berformat JPG, JPEG, atau PNG!',
+                'image.max' => 'Ukuran gambar maksimal 2 MB!',
+            ]);
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            return redirect()
+                ->route('product.index')
+                ->with('error', $e->validator->errors()->first());
+        }
 
         $imagePath = null;
         if ($request->hasFile('image')) {
@@ -53,11 +68,26 @@ class ProductController extends Controller
 
     public function update(Request $request, Product $product)
     {
-        $request->validate([
-            'name' => 'required|string|max:100',
-            'price' => 'required|numeric|min:0',
-            'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
-        ]);
+
+        try {
+            $request->validate([
+                'name' => 'required|string|max:100',
+                'price' => 'required|numeric|min:0',
+                'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+            ], [
+                'name.required' => 'Nama produk wajib diisi!',
+                'price.required' => 'Harga wajib diisi!',
+                'price.numeric' => 'Harga harus berupa angka!',
+                'price.min' => 'Harga tidak boleh minus',
+                'image.image' => 'File harus berupa gambar',
+                'image.mimes' => 'Gambar hanya boleh berformat JPG, JPEG, atau PNG',
+                'image.max' => 'Ukuran gambar maksimal 2 MB!',
+            ]);
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            return redirect()
+                ->route('product.index')
+                ->with('error', $e->validator->errors()->first());
+        }
 
         $imagePath = $product->image;
 

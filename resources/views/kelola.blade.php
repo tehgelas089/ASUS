@@ -5,18 +5,45 @@
 
 
   <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8 ">
+
+
     @if(session('success'))
-    <div class="alert relative pr-10 text-black bg-emerald-400" role="alert" id="successAlert">
-      {{ session('success') }}
+    <div class="relative">
+      <div class="p-3 mb-3 rounded bg-emerald-400 text-white text-center" id="successAlert">
+        {{ session('success') }}
+      </div>
 
       <button
         type="button"
-        id="closeAlertBtn"
-        class="absolute right-2 top-1/2 -translate-y-1/2 text-gray-700 hover:text-gray-900">
+        id="closeSuccessBtn"
+        class="absolute right-2 top-1/2 -translate-y-1/2 text-white hover:text-gray-300">
         ✕
       </button>
     </div>
     @endif
+
+    @if (session('error'))
+    <div class="relative">
+
+      <div class="p-3 mb-3 rounded bg-red-700 text-white text-center" id="errorAlert">
+        {{ session('error') }}
+      </div>
+
+      <button
+        type="button"
+        id="closeErrorBtn"
+        class="absolute right-2 top-1/2 -translate-y-1/2 text-white hover:text-gray-300">
+        ✕
+      </button>
+
+    </div>
+    @endif
+
+
+
+
+
+
 
 
 
@@ -30,6 +57,7 @@
           <label class="block text-sm font-medium text-gray-700 mb-1">Gambar Produk (Opsional)</label>
           <input type="file" name="image" accept="image/*" class="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100">
         </div>
+
         <button type="submit" class="w-100 text-white fw-bold mt-2 border-none bg-green-600 hover:bg-green-800">Tambah Produk</button>
       </form>
 
@@ -350,21 +378,26 @@
       }
     });
 
-
     document.addEventListener('DOMContentLoaded', () => {
-      const btn = document.getElementById('closeAlertBtn');
-      const alertBox = document.getElementById('successAlert');
 
-      if (btn && alertBox) {
-        btn.addEventListener('click', () => {
-          alertBox.style.transition = "opacity 0.3s ease";
-          alertBox.style.opacity = 0;
+      const closeSuccessBtn = document.getElementById('closeSuccessBtn');
+      const successAlert = document.getElementById('successAlert');
 
-          setTimeout(() => {
-            alertBox.remove();
-          }, 300);
+      if (closeSuccessBtn && successAlert) {
+        closeSuccessBtn.addEventListener('click', () => {
+          successAlert.remove();
         });
       }
+
+      const closeErrorBtn = document.getElementById('closeErrorBtn');
+      const errorAlert = document.getElementById('errorAlert');
+
+      if (closeErrorBtn && errorAlert) {
+        closeErrorBtn.addEventListener('click', () => {
+          errorAlert.remove();
+        });
+      }
+
     });
   </script>
 

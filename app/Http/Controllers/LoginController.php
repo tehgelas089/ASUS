@@ -17,7 +17,7 @@ class LoginController extends Controller
 
     public function loginOrRegister(Request $request)
     {
-        +
+
         if (empty($request->name) || empty($request->password)) {
             return back()->withErrors([
                 'input_kosong' => 'Nama dan kata sandi wajib diisi.',
