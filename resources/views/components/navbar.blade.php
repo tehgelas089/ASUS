@@ -6,276 +6,111 @@
         text-decoration: none !important;
     }
 
-    .switch {
-        position: relative;
-        display: inline-block;
-        width: 60px;
-        height: 34px;
-    }
-
-    .switch #input {
-        opacity: 0;
-        width: 0;
-        height: 0;
-    }
-
-    .slider {
-        position: absolute;
+    .action_has {
+        --color: 0 0% 60%;
+        --color-has: 211deg 100% 48%;
+        --sz: 1rem;
         cursor: pointer;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background-color: #2196f3;
-        -webkit-transition: 0.4s;
-        transition: 0.4s;
-        z-index: 0;
-        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: calc(var(--sz) * 2.5);
+        width: calc(var(--sz) * 2.5);
+        padding: 0.4rem 0.5rem;
+        border-radius: 0.375rem;
+        border: 0.0625rem solid hsl(var(--color));
     }
 
-    .sun-moon {
-        position: absolute;
-        content: "";
-        height: 26px;
-        width: 26px;
-        left: 4px;
-        bottom: 4px;
-        background-color: yellow;
-        -webkit-transition: 0.4s;
-        transition: 0.4s;
+    .has_saved:hover {
+        border-color: hsl(var(--color-has));
     }
 
-    #input:checked+.slider {
-        background-color: black;
+    .has_liked:hover svg,
+    .has_saved:hover svg {
+        color: hsl(var(--color-has));
     }
 
-    #input:focus+.slider {
-        box-shadow: 0 0 1px #2196f3;
+    .has_liked svg,
+    .has_saved svg {
+        overflow: visible;
+        height: calc(var(--sz) * 1.75);
+        width: calc(var(--sz) * 1.75);
+        --ease: cubic-bezier(0.5, 0, 0.25, 1);
+        --zoom-from: 1.75;
+        --zoom-via: 0.75;
+        --zoom-to: 1;
+        --duration: 1s;
     }
 
-    #input:checked+.slider .sun-moon {
-        -webkit-transform: translateX(26px);
-        -ms-transform: translateX(26px);
-        transform: translateX(26px);
-        background-color: white;
-        -webkit-animation: rotate-center 0.6s ease-in-out both;
-        animation: rotate-center 0.6s ease-in-out both;
+    .has_saved:hover path[data-path="box"] {
+        transition: all 0.3s var(--ease);
+        animation: has-saved var(--duration) var(--ease) forwards;
+        fill: hsl(var(--color-has) / 0.35);
     }
 
-    .moon-dot {
-        opacity: 0;
-        transition: 0.4s;
-        fill: gray;
+    .has_saved:hover path[data-path="line-top"] {
+        animation: has-saved-line-top var(--duration) var(--ease) forwards;
     }
 
-    #input:checked+.slider .sun-moon .moon-dot {
-        opacity: 1;
+    .has_saved:hover path[data-path="line-bottom"] {
+        animation: has-saved-line-bottom var(--duration) var(--ease) forwards,
+            has-saved-line-bottom-2 calc(var(--duration) * 1) var(--ease) calc(var(--duration) * 0.75);
     }
 
-    .slider.round {
-        border-radius: 34px;
-    }
-
-    .slider.round .sun-moon {
-        border-radius: 50%;
-    }
-
-    #moon-dot-1 {
-        left: 10px;
-        top: 3px;
-        position: absolute;
-        width: 6px;
-        height: 6px;
-        z-index: 4;
-    }
-
-    #moon-dot-2 {
-        left: 2px;
-        top: 10px;
-        position: absolute;
-        width: 10px;
-        height: 10px;
-        z-index: 4;
-    }
-
-    #moon-dot-3 {
-        left: 16px;
-        top: 18px;
-        position: absolute;
-        width: 3px;
-        height: 3px;
-        z-index: 4;
-    }
-
-    #light-ray-1 {
-        left: -8px;
-        top: -8px;
-        position: absolute;
-        width: 43px;
-        height: 43px;
-        z-index: -1;
-        fill: white;
-        opacity: 10%;
-    }
-
-    #light-ray-2 {
-        left: -50%;
-        top: -50%;
-        position: absolute;
-        width: 55px;
-        height: 55px;
-        z-index: -1;
-        fill: white;
-        opacity: 10%;
-    }
-
-    #light-ray-3 {
-        left: -18px;
-        top: -18px;
-        position: absolute;
-        width: 60px;
-        height: 60px;
-        z-index: -1;
-        fill: white;
-        opacity: 10%;
-    }
-
-    .cloud-light {
-        position: absolute;
-        fill: #eee;
-        animation-name: cloud-move;
-        animation-duration: 6s;
-        animation-iteration-count: infinite;
-    }
-
-    .cloud-dark {
-        position: absolute;
-        fill: #ccc;
-        animation-name: cloud-move;
-        animation-duration: 6s;
-        animation-iteration-count: infinite;
-        animation-delay: 1s;
-    }
-
-    #cloud-1 {
-        left: 30px;
-        top: 15px;
-        width: 40px;
-    }
-
-    #cloud-2 {
-        left: 44px;
-        top: 10px;
-        width: 20px;
-    }
-
-    #cloud-3 {
-        left: 18px;
-        top: 24px;
-        width: 30px;
-    }
-
-    #cloud-4 {
-        left: 36px;
-        top: 18px;
-        width: 40px;
-    }
-
-    #cloud-5 {
-        left: 48px;
-        top: 14px;
-        width: 20px;
-    }
-
-    #cloud-6 {
-        left: 22px;
-        top: 26px;
-        width: 30px;
-    }
-
-    @keyframes cloud-move {
-        0% {
-            transform: translateX(0px);
+    @keyframes has-saved-line-top {
+        33.333% {
+            transform: rotate(0deg) translate(1px, 2px) scale(var(--zoom-from));
+            d: path("M 3 5 L 3 8 L 3 8");
         }
 
-        40% {
-            transform: translateX(4px);
+        66.666% {
+            transform: rotate(20deg) translate(2px, -2px) scale(var(--zoom-via));
         }
 
-        80% {
-            transform: translateX(-4px);
-        }
-
-        100% {
-            transform: translateX(0px);
+        99.999% {
+            transform: rotate(0deg) translate(0px, 0px) scale(var(--zoom-to));
         }
     }
 
-    .stars {
-        transform: translateY(-32px);
-        opacity: 0;
-        transition: 0.4s;
-    }
-
-    .star {
-        fill: white;
-        position: absolute;
-        -webkit-transition: 0.4s;
-        transition: 0.4s;
-        animation-name: star-twinkle;
-        animation-duration: 2s;
-        animation-iteration-count: infinite;
-    }
-
-    #input:checked+.slider .stars {
-        -webkit-transform: translateY(0);
-        -ms-transform: translateY(0);
-        transform: translateY(0);
-        opacity: 1;
-    }
-
-    #star-1 {
-        width: 20px;
-        top: 2px;
-        left: 3px;
-        animation-delay: 0.3s;
-    }
-
-    #star-2 {
-        width: 6px;
-        top: 16px;
-        left: 3px;
-    }
-
-    #star-3 {
-        width: 12px;
-        top: 20px;
-        left: 10px;
-        animation-delay: 0.6s;
-    }
-
-    #star-4 {
-        width: 18px;
-        top: 0px;
-        left: 18px;
-        animation-delay: 1.3s;
-    }
-
-    @keyframes star-twinkle {
-        0% {
-            transform: scale(1);
+    @keyframes has-saved-line-bottom {
+        33.333% {
+            transform: rotate(0deg) translate(1px, 2px) scale(var(--zoom-from));
+            d: path("M 17 20 L 17 13 L 7 13 L 7 20");
         }
 
-        40% {
-            transform: scale(1.2);
+        66.666% {
+            transform: rotate(20deg) translate(2px, -2px) scale(var(--zoom-via));
         }
 
-        80% {
-            transform: scale(0.8);
+        99.999% {
+            transform: rotate(0deg) translate(0px, 0px) scale(var(--zoom-to));
+            d: path("M 17 21 L 17 21 L 7 21 L 7 21");
+        }
+    }
+
+    @keyframes has-saved-line-bottom-2 {
+        from {
+            d: path("M 17 21 L 17 21 L 7 21 L 7 21");
         }
 
-        100% {
-            transform: scale(1);
+        to {
+            transform: rotate(0deg) translate(0px, 0px) scale(var(--zoom-to));
+            d: path("M 17 20 L 17 13 L 7 13 L 7 20");
+            fill: white;
+        }
+    }
+
+    @keyframes has-saved {
+        33.333% {
+            transform: rotate(0deg) translate(1px, 2px) scale(var(--zoom-from));
+        }
+
+        66.666% {
+            transform: rotate(20deg) translate(2px, -2px) scale(var(--zoom-via));
+        }
+
+        99.999% {
+            transform: rotate(0deg) translate(0px, 0px) scale(var(--zoom-to));
         }
     }
 </style>
@@ -321,11 +156,25 @@
                     <div class="relative ml-3 flex gap-4">
 
 
-                        <button id="profile-button"
-                            class="relative flex max-w-xs items-center rounded-full focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">
-                            <img src="{{ asset ('img/icon.jpg')}}"
-                                alt="" class="size-9 rounded-full outlin`e -outline-offset-1 outline-white/10 hover:bg-primary" />
+                        <button class="action_has has_saved" aria-label="save" type="button" id="profile-button">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-lines-fill" viewBox="0 0 16 16">
+                                <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5 6s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zM11 3.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5m.5 2.5a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1zm2 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1zm0 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1z" />
+
+                                <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5 6s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zM11 3.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5m.5 2.5a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1zm2 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1zm0 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1z"
+                                    stroke-linejoin="round"
+                                    stroke-linecap="round"
+                                    data-path="box"></path>
+                                <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5 6s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zM11 3.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5m.5 2.5a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1zm2 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1zm0 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1z"
+                                    stroke-linejoin="round"
+                                    stroke-linecap="round"
+                                    data-path="line-top"></path>
+                                <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5 6s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zM11 3.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5m.5 2.5a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1zm2 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1zm0 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1z"
+                                    stroke-linejoin="round"
+                                    stroke-linecap="round"></path>
+                            </svg>
                         </button>
+
+
 
                         <div id="profile-menu"
                             class="hidden absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg outline-1 outline-black/5">

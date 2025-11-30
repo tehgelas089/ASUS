@@ -2,30 +2,41 @@
   <x-slot:title>{{$title}}</x-slot:title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-
+  <link rel="stylesheet" href="{{ asset('css/akun.css') }}">
   <div class="garis bg-body min-h-screen flex items-center justify-center">
     <div class="w-full max-w-4xl">
 
-      <div class="bg-white shadow-lg shadow-teal-900 rounded-xl p-8 mx-auto border-3 border-black">
+      <div class="relative group overflow-hidden bg-amber-300 shadow-lg shadow-green-300 rounded-xl p-8 mx-auto border-3 border-black">
+
+        <!-- SHIMMER -->
+        <div class="shine absolute inset-0 -translate-x-full skew-x-12 bg-gradient-to-r from-transparent via-green-400/20 to-transparent transition-all duration-[1200ms] pointer-events-none"></div>
+
+        <!-- GRADIENT OVERLAY -->
+        <div class="absolute inset-0 bg-gradient-to-br from-green-400/5 to-green-300/10 opacity-0 group-hover:opacity-50 transition-opacity duration-700 pointer-events-none"></div>
+
+        <!-- BUBBLE BOTTOM RIGHT -->
+        <div class="absolute w-48 h-48 rounded-full bg-green-400/20 blur-3xl bottom-[-60px] right-[-60px] opacity-0 group-hover:opacity-70 transition-opacity duration-700 pointer-events-none"></div>
+
+        <!-- BUBBLE TOP LEFT -->
+        <div class="absolute w-32 h-32 rounded-full bg-green-400/10 blur-2xl top-[-30px] left-[-30px] opacity-0 group-hover:opacity-60 transition-opacity duration-700 pointer-events-none"></div>
+
 
         <div class="row g-0 align-items-center">
 
           <div class="col-12 col-md-4 d-flex justify-content-center p-3">
-            <div class="text-center">
-              <img
-                alt="Foto Profil"
-                src="{{ asset ('img/icon.jpg')}}"
-                class="rounded-circle shadow object-fit-cover"
-                style="width: 180px; height: 180px; object-fit: cover;">
-              <br>
 
-              <!-- <label class="mt-3 text-sm font-medium">
-                <a href="#" class="text-decoration-none text-indigo-600 cursor-pointer hover:text-indigo-800">
-                  Ganti Foto
-                </a>
-                <input type="file" name="usr_card_url" class="hidden" accept="image/*">
-              </label> -->
+            <!-- From Uiverse.io by vinodjangid07 -->
+            <div class="loader">
+              <div class="panWrapper">
+                <div class="pan">
+                  <div class="food"></div>
+                  <div class="panBase"></div>
+                  <div class="panHandle"></div>
+                </div>
+                <div class="panShadow"></div>
+              </div>
             </div>
+
           </div>
 
           <div class="col-12 col-md-8 d-flex flex-column justify-content-between" style="min-height: 180px;">
@@ -42,13 +53,20 @@
             </div>
 
             <div class="flex justify-end gap-3">
-              <!-- <button type="submit" class="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700">
-                <a href="#">Edit</a>
+
+              <!-- <button class="button bg-body flex-center" title="Riwayat Data" onclick="toggleHistory()">
+                <i class="bi bi-clock-history text-primary fs-4"></i>
               </button> -->
 
-              <button class="button bg-body flex-center" title="Riwayat Data" onclick="toggleHistory()">
-                <i class="bi bi-clock-history text-primary fs-4"></i>
+              <button class="Btn title=" Riwayat Data" onclick="toggleHistory()">
+
+                <div class="sign"> <i class="bi bi-clock-history text-primary fs-4"></i></div>
+
+                <div class="text text-primary">Riwayat data</div>
               </button>
+
+
+
 
             </div>
 
@@ -61,6 +79,13 @@
     </div>
   </div>
 
+  <style>
+    .group:hover .shine {
+      transform: translateX(200%);
+    }
+  </style>
+
+
 
   <div id="historyWrapper" class="mt-8 hidden">
     <div class="bg-white shadow-lg rounded-lg overflow-hidden">
@@ -70,7 +95,7 @@
           <tr>
             <th class="px-4 py-2 text-center">Tanggal</th>
             <th class="px-4 py-2 text-center">Total Pendapatan</th>
-            <th class="px-4 py-2 text-center">Aksi</th>
+
           </tr>
         </thead>
 
@@ -79,13 +104,7 @@
           <tr class="border-b">
             <td class="px-4 py-2 text-center">{{ $h->date }}</td>
             <td class="px-4 py-2 text-center">Rp{{ number_format($h->total_income) }}</td>
-            <td class="px-4 py-2 text-center">
-              <button
-                onclick="openModal('{{ $h->date }}')"
-                class="bg-teal-600 text-white px-3 py-1 rounded">
-                <i class="bi bi-menu-up"></i>
-              </button>
-            </td>
+
           </tr>
           @endforeach
         </tbody>
@@ -196,7 +215,9 @@
           data.forEach(item => {
             html += `
             <tr class="border-b">
-                <td class="px-3 py-2">${formatProductName(item.transaction)}</td>
+                <td class="px-3 py-2">${item.product_names}</td>
+
+
                 <td class="px-3 py-2">Rp${Number(item.income).toLocaleString()}</td>
             </tr>
         `;
@@ -226,35 +247,7 @@
     }
   </script>
 
-  <style>
-    .button {
-      cursor: pointer;
-      text-decoration: none;
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      background-color: white;
-      border: 2px solid #2d2e32;
-      transition: all 0.45s;
-    }
 
-    .button:hover {
-      transform: rotate(360deg);
-      transform-origin: center center;
-      background-color: gray;
-      color: #2d2e32;
-    }
-
-    .button:hover .btn-svg {
-      filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(305deg) brightness(103%) contrast(103%);
-    }
-
-    .flex-center {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-  </style>
 
 
 

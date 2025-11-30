@@ -33,7 +33,7 @@
       <button class="pushable">
         <span class="shadow"></span>
         <span class="edge"></span>
-        <span class="front"> Kurangi </span>
+        <span class="front bg-amber-300"> Kurangi </span>
       </button>
 
     </div>

@@ -155,7 +155,7 @@
   display: block;
   position: relative;
   border-radius: 8px;
-  background: hsl(66, 100%, 53%);
+  /* background: hsl(66, 100%, 53%); */
   padding: 16px 32px;
   color: grey;
   font-weight: 600;

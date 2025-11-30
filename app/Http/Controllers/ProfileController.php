@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Revenue;
+use App\Models\RevenueHistory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
@@ -20,11 +21,11 @@ class ProfileController extends Controller
         $user = User::find($id);
         $total = Revenue::sum('income');
 
-        $history7days = Revenue::selectRaw('DATE(created_at) as date, SUM(income) as total_income')
-            ->where('created_at', '>=', now()->subDays(7))
-            ->groupBy('date')
+        $history7days = \App\Models\RevenueHistory::where('date', '>=', now()->subDays(7))
             ->orderBy('date', 'desc')
             ->get();
+
+
 
         return view('akun', compact('user', 'total', 'history7days'));
     }

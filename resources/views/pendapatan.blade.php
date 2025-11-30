@@ -39,12 +39,12 @@
     <h2 class="text-2xl font-semibold mb-6 text-gray-800 text-center">Riwayat Transaksi</h2>
 
     <div class="overflow-x-auto w-full">
-      <table class="min-w-full bg-gray-300 rounded-lg shadow">
+      <table class="min-w-full bg-neutral-200 rounded-lg shadow border border-black">
         <thead>
           <tr class="bg-teal-400 text-gray-700 text-left text-sm">
             <th class="py-3 px-4 border-b">No</th>
             <th class="py-3 px-4 border-b">Nama Produk</th>
-            <th class="py-3 px-4 border-b">Harga / Total</th>
+            <th class="py-3 px-4 border-b">Total</th>
             <th class="py-3 px-4 border-b">Uang Diterima</th>
             <th class="py-3 px-4 border-b">Kembalian</th>
             <th class="py-3 px-4 border-b">Pendapatan</th>
@@ -54,7 +54,7 @@
 
         <tbody class="text-sm text-gray-800">
           @foreach($revenues as $index => $rev)
-          <tr class="hover:bg-gray-50 transition">
+          <tr class="hover:bg-white transition">
             <td class="py-3 px-4 border-b text-gray-600">
               {{ $index + 1 }}
             </td>
@@ -88,7 +88,7 @@
               Rp{{ number_format($rev->transaction->change ?? 0, 0, ',', '.') }}
             </td>
 
-            <td class="py-3 px-4 border-b text-green-600 font-semibold">
+            <td class="py-3 px-4 border-b text-green-500 font-semibold">
               Rp{{ number_format($rev->income, 0, ',', '.') }}
             </td>
 
