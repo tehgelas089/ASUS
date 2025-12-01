@@ -43,11 +43,11 @@
 
             <div class="card-body text-start">
               <div class="mt-5">
-                <strong>Nama:</strong>
-                <span class="ms-2">{{ $user->name }}</span>
+                <strong class="text-xl">Nama:</strong>
+                <span class="ms-2 text-xl">{{ $user->name }}</span>
               </div>
 
-              <div class="mt-2">
+              <div class="mt-2 text-xl">
                 <strong>Pendapatan hari ini: Rp{{ number_format($total, 0, ',', '.') }} </strong>
               </div>
             </div>

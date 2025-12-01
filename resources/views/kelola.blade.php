@@ -25,7 +25,7 @@
     @if (session('error'))
     <div class="relative">
 
-      <div class="p-3 mb-3 rounded bg-red-700 text-white text-center" id="errorAlert">
+      <div class="p-3 mb-3 rounded bg-red-600 text-white text-center" id="errorAlert">
         {{ session('error') }}
       </div>
 
@@ -84,8 +84,10 @@
             @else
             <img src="{{ asset('img/noimage.png') }}" alt="No Image">
             @endif
-            <h4 class="fs-5 fw-bold text-gray-600 overflow-hidden">{{ $product->name }}</h4>
-            <p class="fs-7 text-teal-500 fw-bold">Rp {{ number_format($product->price, 0, ',', '.') }}</p>
+            <h4 class="fs-5 fw-bold text-zinc-500 overflow-hidden">{{ $product->name }}</h4>
+            <p class="fs-7 text-stone-200 fw-bold">Rp {{ number_format($product->price, 0, ',', '.') }}</p>
+
+
           </div>
 
           <!-- 🔽 Tambahkan tombol Edit -->
@@ -204,6 +206,19 @@
         card.style.left = newX + 'px';
         card.style.top = newY + 'px';
 
+
+        // = AUTO SCROLL=
+        const scrollMargin = 80;
+        const scrollSpeed = 20;
+
+
+        if (e.clientY < scrollMargin) {
+          window.scrollBy(0, -scrollSpeed);
+        }
+
+        if (e.clientY > window.innerHeight - scrollMargin) {
+          window.scrollBy(0, scrollSpeed);
+        }
 
         const bin = document.querySelector('button.bin');
         const binRect = bin.getBoundingClientRect();

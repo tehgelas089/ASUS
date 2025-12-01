@@ -20,7 +20,6 @@ class ProductController extends Controller
 
     public function store(Request $request)
     {
-
         try {
             $request->validate([
                 'name' => 'required|string|max:100',
@@ -41,6 +40,13 @@ class ProductController extends Controller
                 ->with('error', $e->validator->errors()->first());
         }
 
+        // ➕ CEK NAMA PRODUK SUDAH ADA BELUM
+        if (Product::where('name', $request->name)->exists()) {
+            return redirect()
+                ->route('product.index')
+                ->with('error', 'Nama Tidak boleh sama dengan yang telah ada di menu');
+        }
+
         $imagePath = null;
         if ($request->hasFile('image')) {
             $imagePath = $request->file('image')->store('produk', 'public');
@@ -56,6 +62,7 @@ class ProductController extends Controller
     }
 
 
+
     public function showLanding()
     {
         $products = Product::all();
@@ -68,7 +75,6 @@ class ProductController extends Controller
 
     public function update(Request $request, Product $product)
     {
-
         try {
             $request->validate([
                 'name' => 'required|string|max:100',
@@ -89,6 +95,13 @@ class ProductController extends Controller
                 ->with('error', $e->validator->errors()->first());
         }
 
+        // ➕ CEK NAMA SUDAH ADA, KECUALI YANG SEDANG DIEDIT
+        if (Product::where('name', $request->name)->where('id', '!=', $product->id)->exists()) {
+            return redirect()
+                ->route('product.index')
+                ->with('error', 'Nama Tidak boleh sama dengan yang telah ada di menu');
+        }
+
         $imagePath = $product->image;
 
         if ($request->hasFile('image')) {
@@ -103,6 +116,7 @@ class ProductController extends Controller
 
         return redirect()->route('product.index')->with('success', 'Menu berhasil diperbarui!');
     }
+
 
 
     public function destroy(Product $product)

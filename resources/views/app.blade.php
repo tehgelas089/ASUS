@@ -117,7 +117,7 @@
       uangPelanggan.addEventListener("input", () => {
         const uang = parseInt(uangPelanggan.value) || 0;
 
-        
+
         const MAX_UANG = 999999999999;
         if (uang > MAX_UANG) {
           document.getElementById("notifError").textContent = "⚠️ Uang pelanggan terlalu besar!";
@@ -137,7 +137,7 @@
       document.getElementById("formTransaksi").addEventListener("submit", function(e) {
         const uang = parseInt(uangPelanggan.value) || 0;
 
-       
+
         const MAX_UANG = 999999999999;
         if (uang > MAX_UANG) {
           e.preventDefault();
@@ -164,10 +164,6 @@
     document.getElementById('cardBtn').addEventListener('click', function() {
       this.classList.toggle('active');
     });
-
-
-
-    
   </script>
 
 </x-layout>
